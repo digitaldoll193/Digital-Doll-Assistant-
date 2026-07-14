@@ -1,0 +1,21 @@
+WHAT IS INCLUDED NOW
+
+- Deployable Node.js backend
+- OpenAI chat connection
+- Lead capture endpoint
+- Website chat widget
+- Digital Doll Assistant branding
+- $1,500 setup fee and $297/month pricing
+- Wix installation snippet
+- GitHub and Render deployment instructions
+
+NOT YET INCLUDED IN THIS MVP
+
+- Customer login accounts
+- Full CRM dashboard
+- Direct Google/Outlook calendar booking
+- Automatic email delivery
+- Automatic SMS delivery
+- Stripe billing
+- Voice AI receptionist
+- Multi-business SaaS management

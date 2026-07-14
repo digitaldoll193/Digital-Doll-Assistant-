@@ -1,0 +1,12 @@
+GITHUB UPLOAD STEPS
+
+1. Download Digital-Doll-Assistant-Master.zip.
+2. Open your Downloads folder.
+3. Tap the ZIP file and choose Extract or Unzip.
+4. Open the extracted Digital-Doll-Assistant-Master folder.
+5. Open your GitHub repository named Digital-Doll-Assistant.
+6. Tap Add file, then Upload files.
+7. Upload all files and folders inside the extracted folder.
+8. Scroll down and tap Commit changes.
+9. Return to Render.
+10. Tap Manual Deploy, then Deploy latest commit.

@@ -1,0 +1,6 @@
+After Render gives you your live URL, replace BOTH example URLs below with your real Render URL and paste this into Wix Custom Code:
+
+<script
+  src="https://YOUR-RENDER-URL.onrender.com/widget.js"
+  data-api="https://YOUR-RENDER-URL.onrender.com">
+</script>

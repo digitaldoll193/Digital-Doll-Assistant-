@@ -1,0 +1,17 @@
+LEFT BOX = KEY
+RIGHT BOX = VALUE
+
+BUSINESS_NAME = Digital Doll Assistant
+BUSINESS_EMAIL = Mypersonaltouch2u@gmail.com
+BUSINESS_PHONE = 561-767-7285
+WEBSITE_DOMAIN = DigitalDollAssistant.com
+NODE_ENV = production
+SETUP_FEE = 1500
+MONTHLY_PRICE = 297
+ADMIN_EMAIL = Mypersonaltouch2u@gmail.com
+ADMIN_PASSWORD = your private password
+JWT_SECRET = use Render Generate
+OPENAI_API_KEY = your private OpenAI API key
+OPENAI_MODEL = gpt-4o-mini
+DATABASE_URL = your Render PostgreSQL connection string
+BOOKING_URL = your Calendly or booking link, if available
