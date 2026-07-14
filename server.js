@@ -110,8 +110,16 @@ app.get("/api/leads", (req, res) => {
   const leads = JSON.parse(fs.readFileSync(LEADS_FILE, "utf8"));
   res.json(leads);
 });
-
 const port = process.env.PORT || 3000;
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.get("/widget.js", (req, res) => {
+  res.sendFile(path.join(__dirname, "widget.js"));
+});
+
 app.listen(port, () => {
   console.log(`Digital Doll Assistant running on http://localhost:${port}`);
 });
