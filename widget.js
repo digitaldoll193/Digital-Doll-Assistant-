@@ -25,8 +25,9 @@
     <div class="dda-panel" id="ddaPanel">
       <div class="dda-header">
         <button class="dda-close" id="ddaClose">×</button>
-        <div class="dda-brand">Digital Doll Assistant</div>
-        <div class="dda-sub">The AI Employee That Works While You Sleep</div>
+        <img class="dda-avatar" src="./file_0000000007b4822f934f6ab3109ef00.png" alt="Nova">
+        <div class="dda-brand">Nova</div>
+        <div class="dda-sub">Your AI Business Assistant</div>
         <div class="dda-status">● Online • 24/7 AI Business Assistant</div>
       </div>
       <div class="dda-body" id="ddaBody"></div>
