@@ -6,7 +6,16 @@
     #dda-widget{position:fixed;right:22px;bottom:22px;z-index:999999;font-family:Arial,Helvetica,sans-serif}
     .dda-bubble{width:76px;height:76px;border-radius:50%;background:radial-gradient(circle at 35% 25%,#70dcff,#0877ff 45%,#111827 78%);box-shadow:0 0 25px #178bff,0 0 60px rgba(124,49,255,.55);border:2px solid rgba(255,255,255,.35);cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:22px}
     .dda-panel{width:390px;max-width:calc(100vw - 28px);height:620px;max-height:calc(100vh - 120px);border-radius:26px;overflow:hidden;background:#070b14;border:1px solid rgba(80,166,255,.55);box-shadow:0 0 35px rgba(0,115,255,.35),0 20px 70px rgba(0,0,0,.7);display:none;flex-direction:column}
-    .dda-header{background:linear-gradient(135deg,#05070d,#0e1b35 55%,#23104a);padding:18px;border-bottom:1px solid rgba(80,166,255,.35);color:#fff;position:relative}
+    .dda-header{background:linear-gradient(135deg,#05070d,#0e1b35 55%,#23104a);padding:18px;border-bottom:1px solid rgba(80,166,255,.35);color:#fff;position:relative}.dda-avatar{
+     .dda-avatar{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  object-fit:cover;
+  border:2px solid #ff4fa3;
+  margin-bottom:10px;
+}
+
     .dda-brand{font-size:22px;font-weight:800}.dda-sub{color:#b7cdfb;font-size:12px;margin-top:4px;text-transform:uppercase;letter-spacing:1.8px}.dda-status{margin-top:10px;color:#28ff7e;font-size:13px}.dda-close{position:absolute;top:17px;right:17px;background:transparent;color:white;border:none;font-size:25px;cursor:pointer}
     .dda-body{padding:16px;flex:1;overflow-y:auto;background:radial-gradient(circle at top right,rgba(0,118,255,.16),transparent 38%),radial-gradient(circle at bottom left,rgba(142,45,255,.16),transparent 35%),#070b14}
     .dda-msg{padding:12px 14px;border-radius:18px;margin:10px 0;line-height:1.45;font-size:14px}.dda-ai{background:rgba(255,255,255,.08);border:1px solid rgba(91,168,255,.25);color:#fff;border-top-left-radius:5px}.dda-user{background:linear-gradient(135deg,#0877ff,#7438ff);color:#fff;margin-left:45px;border-top-right-radius:5px}
