@@ -140,13 +140,31 @@
       });
       const data=await res.json();
       ai(data.reply);
-    } catch(e){
-      ai("I can help with pricing, setup fee, free consultation, features, and appointment booking. Would you like to book a free consultation?");
-    }
-  }
+    } catch (e) {
+  ai("I’m having trouble connecting right now. Please try your message again in a moment.");
+}
+}
 
-  bubble.onclick=()=>{ bubble.style.display="none"; panel.style.display="flex"; if(!body.dataset.started){ body.dataset.started="true"; mainMenu(); } };
-  close.onclick=()=>{ panel.style.display="none"; bubble.style.display="flex"; };
-  send.onclick=sendMessage;
-  input.addEventListener("keydown", e=>{ if(e.key==="Enter") sendMessage(); });
+bubble.onclick = () => {
+  bubble.style.display = "none";
+  panel.style.display = "flex";
+
+  if (!body.dataset.started) {
+    body.dataset.started = "true";
+    mainMenu();
+  }
+};
+
+close.onclick = () => {
+  panel.style.display = "none";
+  bubble.style.display = "flex";
+};
+
+send.onclick = sendMessage;
+
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") sendMessage();
+});
+
 })();
+  
