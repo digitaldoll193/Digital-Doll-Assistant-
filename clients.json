@@ -1,0 +1,26 @@
+{
+  "digital-doll-assistant": {
+    "clientId": "digital-doll-assistant",
+    "businessName": "Digital Doll Assistant",
+    "assistantName": "Nova",
+    "industry": "AI Business Automation",
+    "website": "https://digitaldollassistant.com",
+    "pricing": {
+      "setupFee": 1500,
+      "monthlyFee": 297
+    },
+    "services": [
+      "24/7 AI customer assistance",
+      "Lead capture",
+      "Appointment booking",
+      "Customer support",
+      "CRM support",
+      "Email and SMS automation",
+      "Business automation",
+      "Analytics",
+      "Calendar integration",
+      "Industry customization"
+    ],
+    "assistantInstructions": "Be professional, warm, conversational, confident, helpful, and sales-focused. Ask relevant questions, understand what the customer needs, explain how the service can help, and naturally guide qualified prospects toward booking a consultation."
+  }
+}
