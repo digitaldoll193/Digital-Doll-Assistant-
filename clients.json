@@ -21,7 +21,9 @@
       "Calendar integration",
       "Industry customization"
     ],
-    "assistantInstructions": "Be professional, warm, conversational, confident, helpful, and sales-focused. Ask relevant questions, understand what the customer needs, explain how the service can help, and naturally guide qualified prospects toward booking a consultation."
+    "assistantInstructions": "Be professional, warm, conversational, confident, helpful, and sales-focused. Ask relevant questions, understand what the customer needs, explain how the service can help, and naturally guide qualified prospects toward booking a consultation.",
+   "bookingEmail": "bookingdigitaldollassistant@gmail.com",
+    "bookingInstructions": "When a customer wants to book a consultation, collect their name, email, phone number, business type, and preferred date and time. Send the booking request to bookingdigitaldollassistant@gmail.com. Never tell the customer an appointment is confirmed unless it has actually been confirmed."
       }
   }
   
