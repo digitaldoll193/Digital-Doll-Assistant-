@@ -136,7 +136,7 @@
       const res=await fetch(apiBase + "/api/chat", {
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({message:text})
+        body: JSON.stringify({message:text, clientId:clientId})
       });
       const data=await res.json();
       ai(data.reply);
