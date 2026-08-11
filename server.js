@@ -22,9 +22,11 @@ const openai = process.env.OPENAI_API_KEY
 
 const DATA_DIR = path.join(__dirname, "data");
 const LEADS_FILE = path.join(DATA_DIR, "leads.json");
+const CLIENTS_FILE = path.join(__dirname, "clients.json");
 
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 if (!fs.existsSync(LEADS_FILE)) fs.writeFileSync(LEADS_FILE, "[]");
+const CLIENTS = JSON.parse(fs.readFileSync(CLIENTS_FILE, "utf8"));
 
 /*
   Lightweight conversation memory.
@@ -183,7 +185,9 @@ app.get("/health", (req, res) => {
 
 app.post("/api/chat", async (req, res) => {
   try {
+   const clientId = String(req.body?.clientId || "digital-doll-assistant").trim();
     const message = String(req.body?.message || "").trim();
+    const client = CLIENTS[clientId] || CLIENTS["digital-doll-assistant"];
 
     if (!message) {
       return res.status(400).json({
@@ -199,16 +203,19 @@ app.post("/api/chat", async (req, res) => {
       });
     }
 
-    const sessionKey = getSessionKey(req);
+    const sessionKey = clientId + "|" + getSessionKey(req);
     const conversation = getConversation(sessionKey);
 
     conversation.messages.push({ role: "user", content: message });
     trimConversation(conversation);
 
+    const clientPrompt = SYSTEM_PROMPT + "\n\nCLIENT CONFIGURATION:\n" + JSON.stringify(client);
+
     const completion = await openai.chat.completions.create({
       model: process.env.OPENAI_MODEL || "gpt-4o-mini",
       messages: [
-        { role: "system", content: SYSTEM_PROMPT },
+        { role: "system", content: clientPrompt },
+        
         ...conversation.messages
       ],
       temperature: 0.72,
