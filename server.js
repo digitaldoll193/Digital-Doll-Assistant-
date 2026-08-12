@@ -3,7 +3,7 @@ const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
 const OpenAI = require("openai");
-
+const nodemailer = require("nodemailer");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -248,7 +248,7 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-app.post("/api/leads", (req, res) => {
+app.post("/api/leads", async (req, res) => {
   try {
     const lead = {
       id: Date.now().toString(),
@@ -265,7 +265,35 @@ app.post("/api/leads", (req, res) => {
     const leads = JSON.parse(fs.readFileSync(LEADS_FILE, "utf8"));
     leads.push(lead);
     fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2));
+if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_APP_PASSWORD
+      }
+    });
 
+    await transporter.sendMail({
+      from: process.env.GMAIL_USER,
+      to: process.env.BOOKING_EMAIL || "bookingdigitaldollassistant@gmail.com",
+      subject: "New Digital Doll Assistant Booking Request",
+      text: `
+Name: ${lead.name}
+Email: ${lead.email}
+Phone: ${lead.phone}
+Business: ${lead.business}
+Industry: ${lead.industry}
+Message: ${lead.message}
+Source: ${lead.source}
+Submitted: ${lead.createdAt}
+      `
+    });
+  } catch (emailError) {
+    console.error("BOOKING_EMAIL_ERROR:", emailError);
+  }
+}
     return res.json({
       ok: true,
       message: "Lead captured successfully.",
