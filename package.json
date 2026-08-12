@@ -1,7 +1,7 @@
 {
   "name": "digital-doll-assistant",
   "version": "1.0.0",
-  "description": "Digital Doll Assistant - AI business chatbot platform starter",
+  "description": "Digital Doll Assistant - AI business chatbot platform starter", 
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
