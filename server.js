@@ -265,21 +265,19 @@ app.post("/api/leads", async (req, res) => {
     const leads = JSON.parse(fs.readFileSync(LEADS_FILE, "utf8"));
     leads.push(lead);
     fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2));
-if (process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD) {
-  try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.GMAIL_USER,
-        pass: process.env.GMAIL_APP_PASSWORD
-      }
-    });
-
-    await transporter.sendMail({
-      from: process.env.GMAIL_USER,
-      to: process.env.BOOKING_EMAIL || "bookingdigitaldollassistant@gmail.com",
-      subject: "New Digital Doll Assistant Booking Request",
-      text: `
+if (process.env.RESEND_API_KEY) {
+      try {
+      const resendResponse = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
+          to: [process.env.BOOKING_EMAIL || "bookingdigitaldollassistant@gmail.com"],
+          subject: "New Digital Doll Assistant Booking Request",
+          text: `
 Name: ${lead.name}
 Email: ${lead.email}
 Phone: ${lead.phone}
@@ -288,8 +286,19 @@ Industry: ${lead.industry}
 Message: ${lead.message}
 Source: ${lead.source}
 Submitted: ${lead.createdAt}
-      `
-    });
+          `
+        })
+      });
+
+      if (!resendResponse.ok) {
+        const errorText = await resendResponse.text();
+        throw new Error(`Resend API error ${resendResponse.status}: ${errorText}`);
+      }
+    } catch (emailError) {
+      console.error("BOOKING_EMAIL_ERROR:", emailError);
+    }
+  try {
+    
   } catch (emailError) {
     console.error("BOOKING_EMAIL_ERROR:", emailError);
   }
