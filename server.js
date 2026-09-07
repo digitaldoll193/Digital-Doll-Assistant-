@@ -251,65 +251,60 @@ app.post("/api/chat", async (req, res) => {
 app.post("/api/leads", async (req, res) => {
   try {
     const lead = {
-      id: Date.now().toString(),
-      createdAt: new Date().toISOString(),
+      client_id: String(req.body?.clientId || "digital-doll-assistant").trim(),
       name: String(req.body?.name || "").trim(),
       phone: String(req.body?.phone || "").trim(),
       email: String(req.body?.email || "").trim(),
-      business: String(req.body?.business || "").trim(),
-      industry: String(req.body?.industry || "").trim(),
+      business_name: String(req.body?.business || "").trim(),
+      service: String(req.body?.industry || "").trim(),
+      appointment_date: String(req.body?.appointmentDate || "").trim(),
+      appointment_time: String(req.body?.appointmentTime || "").trim(),
       message: String(req.body?.message || "").trim(),
-      source: String(req.body?.source || "Website Chat").trim()
+      status: "new"
     };
 
-    const leads = JSON.parse(fs.readFileSync(LEADS_FILE, "utf8"));
-    leads.push(lead);
-    fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2));
-if (process.env.RESEND_API_KEY) {
-      try {
-      const resendResponse = await fetch("https://api.resend.com/emails", {
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseKey = process.env.SUPABASE_PUBLISHABLE_KEY;
+
+    if (!supabaseUrl || !supabaseKey) {
+      throw new Error("Supabase configuration is missing.");
+    }
+
+    const response = await fetch(
+      `${supabaseUrl.replace(/\/$/, "")}/rest/v1/leads`,
+      {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`,
+          "Prefer": "return=representation"
         },
-        body: JSON.stringify({
-          from: process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev",
-          to: [process.env.BOOKING_EMAIL || "bookingdigitaldollassistant@gmail.com"],
-          subject: "New Digital Doll Assistant Booking Request",
-          text: `
-Name: ${lead.name}
-Email: ${lead.email}
-Phone: ${lead.phone}
-Business: ${lead.business}
-Industry: ${lead.industry}
-Message: ${lead.message}
-Source: ${lead.source}
-Submitted: ${lead.createdAt}
-          `
-        })
-      });
-
-      if (!resendResponse.ok) {
-        const errorText = await resendResponse.text();
-        throw new Error(`Resend API error ${resendResponse.status}: ${errorText}`);
+        body: JSON.stringify(lead)
       }
-    } catch (emailError) {
-      console.error("BOOKING_EMAIL_ERROR:", emailError);
+    );
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Supabase error ${response.status}: ${errorText}`);
     }
-  try {
-    
-  } catch (emailError) {
-    console.error("BOOKING_EMAIL_ERROR:", emailError);
-  }
-}
+
+    const savedLead = await response.json();
+
+    console.log(
+      "LEAD_SAVED_TO_SUPABASE:",
+      lead.email || lead.phone || lead.name
+    );
+
     return res.json({
       ok: true,
       message: "Lead captured successfully.",
-      lead
+      lead: savedLead[0] || lead
     });
+
   } catch (error) {
     console.error("LEAD_ERROR:", error);
+
     return res.status(500).json({
       ok: false,
       message: "Lead could not be saved."
