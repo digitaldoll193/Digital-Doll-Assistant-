@@ -295,7 +295,51 @@ app.post("/api/leads", async (req, res) => {
       "LEAD_SAVED_TO_SUPABASE:",
       lead.email || lead.phone || lead.name
     );
+    const resendApiKey = process.env.RESEND_API_KEY;
 
+    if (!resendApiKey) {
+      console.error("BOOKING_EMAIL_ERROR: RESEND_API_KEY is missing");
+    } else {
+      try {
+        const emailResponse = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${resendApiKey}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            from: "Digital Doll Assistant <onboarding@resend.dev>",
+            to: ["bookingdigitaldollassistant@gmail.com"],
+            subject: `New Digital Doll Assistant Lead - ${lead.name || "Website Visitor"}`,
+            text: [
+              "NEW DIGITAL DOLL ASSISTANT LEAD",
+              "",
+              `Name: ${lead.name || "Not provided"}`,
+              `Phone: ${lead.phone || "Not provided"}`,
+              `Email: ${lead.email || "Not provided"}`,
+              `Business: ${lead.business_name || "Not provided"}`,
+              `Service/Industry: ${lead.service || "Not provided"}`,
+              `Appointment Date: ${lead.appointment_date || "Not provided"}`,
+              `Appointment Time: ${lead.appointment_time || "Not provided"}`,
+              `Message: ${lead.message || "Not provided"}`
+            ].join("\n")
+          })
+        });
+
+        if (!emailResponse.ok) {
+          const emailError = await emailResponse.text();
+          console.error(
+            "BOOKING_EMAIL_ERROR:",
+            emailResponse.status,
+            emailError
+          );
+        } else {
+          console.log("BOOKING_EMAIL_SENT:", lead.email || lead.phone || lead.name);
+        }
+      } catch (emailError) {
+        console.error("BOOKING_EMAIL_ERROR:", emailError);
+      }
+    }
     return res.json({
       ok: true,
       message: "Lead captured successfully.",
