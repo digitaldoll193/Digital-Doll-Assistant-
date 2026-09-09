@@ -278,7 +278,7 @@ app.post("/api/leads", async (req, res) => {
           "Content-Type": "application/json",
           "apikey": supabaseKey,
           "Authorization": `Bearer ${supabaseKey}`,
-          "Prefer": "return=representation"
+         "Prefer": "return=minimal" 
         },
         body: JSON.stringify(lead)
       }
@@ -288,10 +288,8 @@ app.post("/api/leads", async (req, res) => {
       const errorText = await response.text();
       throw new Error(`Supabase error ${response.status}: ${errorText}`);
     }
-
-    const savedLead = await response.json();
-
-    console.log(
+const savedLead = [lead];
+        console.log(
       "LEAD_SAVED_TO_SUPABASE:",
       lead.email || lead.phone || lead.name
     );
