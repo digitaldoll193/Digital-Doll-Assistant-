@@ -278,7 +278,7 @@ app.post("/api/leads", async (req, res) => {
           "Content-Type": "application/json",
           "apikey": supabaseKey,
           "Authorization": `Bearer ${supabaseKey}`,
-        "Prefer": "return=minimal"  
+        "Prefer": "return=minimal" 
         },
         body: JSON.stringify(lead)
       }
