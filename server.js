@@ -306,7 +306,7 @@ const savedLead = [lead];
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            from: "Digital Doll Assistant <onboarding@resend.dev>",
+            from: "Digital Doll Assistant <booking@digitaldollassistant.com>",
             to: ["bookingdigitaldollassistant@gmail.com"],
             subject: `New Digital Doll Assistant Lead - ${lead.name || "Website Visitor"}`,
             text: [
