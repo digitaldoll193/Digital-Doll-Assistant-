@@ -111,7 +111,13 @@
         <option>Real Estate</option><option>Medical</option><option>Legal</option><option>Beauty / Salon</option><option>Contractor / Home Services</option><option>Restaurant</option><option>Retail</option><option>Other</option>
       </select>
       <textarea class="dda-textarea" name="message" rows="3" placeholder="What do you want your AI assistant to help with?"></textarea>
-      <button class="dda-submit" type="submit">Send My Request</button>
+     
+     
+<label>Preferred Appointment Date</label>
+<input class="dda-input" type="date" name="appointmentDate" />
+<label>Preferred Appointment Time</label>
+<input class="dda-input" type="time" name="appointmentTime" />
+   <button class="dda-submit" type="submit">Send My Request</button>
     `;
     form.onsubmit=async function(e){
       e.preventDefault();
